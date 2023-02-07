@@ -3,6 +3,8 @@ package dev.rabaioli.lafapp.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import dev.rabaioli.lafapp.domain.enums.EstadoPagamento;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -21,6 +23,7 @@ public abstract class Pagamento implements Serializable{
 	private Integer id;
 	private EstadoPagamento estado;
 	
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="pedido_id")
 	@MapsId

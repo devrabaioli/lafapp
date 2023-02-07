@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -31,8 +32,11 @@ public class Lost implements Serializable {
 	private String whoFind;
 	private String local;
 	private String userApp;
+	
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 	private Date date;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "lost")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
@@ -57,7 +61,6 @@ public class Lost implements Serializable {
 		this.date = date;
 	}
 
-	
 	
 	public Integer getId() {
 		return id;

@@ -67,7 +67,7 @@ public class LafappApplication implements CommandLineRunner {
 		cateRepo.saveAll(Arrays.asList(cat1,cat2));
 		lostRepo.saveAll(Arrays.asList(lost1,lost2));
 		
-		Client cli1 = new Client(null, "Ana Santos", "Amadora");
+		Client cli1 = new Client(null, "Esquadra PSP", "Amadora");
 		cli1.getTelefones().addAll(Arrays.asList("93455454545"));
 
 		Client cli2 = new Client(null, "Fernanda Alves", "Odivelas");
