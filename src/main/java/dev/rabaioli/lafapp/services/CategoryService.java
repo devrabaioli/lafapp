@@ -19,5 +19,15 @@ public class CategoryService {
 		Optional<Category> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Object not found, invalid id: " + id + " Class: " + Category.class.getName()));
 	}
+	
+	public Category insert(Category obj) {
+		obj.setId(null);
+		 return repo.save(obj);
+	}
+	
+	public Category update(Category obj) {
+		findbyId(obj.getId());
+		return repo.save(obj);
+	}
 
 }
