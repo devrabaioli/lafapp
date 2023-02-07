@@ -75,8 +75,8 @@ public class LafappApplication implements CommandLineRunner {
 		
 		clientRepo.saveAll(Arrays.asList(cli1,cli2));
 		
-		Pedido pede1 = new Pedido(null, sdf.parse("11/01/2023 10:32"), cli1); //Entregua PSP dia seguinte
-		Pedido pede2 = new Pedido(null, sdf.parse("11/01/2013 11:56"), cli2);
+		Pedido pede1 = new Pedido(null, sdf.parse("11/01/2023 10:32"), cli1,lost1); //Entregua PSP dia seguinte
+		Pedido pede2 = new Pedido(null, sdf.parse("11/01/2013 11:56"), cli2,lost2);
 		
 		Pagamento pagto1 = new PagamentoAUTORIDADE(null, EstadoPagamento.ENTREGUEAUTORIDADE, pede1, sdf.parse("11/01/2023 10:32"));
 		pede1.setPagamento(pagto1);

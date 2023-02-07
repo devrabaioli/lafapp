@@ -2,7 +2,6 @@ package dev.rabaioli.lafapp.domain;
 
 import java.util.Date;
 import java.util.Objects;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +19,10 @@ public class Pedido {
 	private Integer id;
 	private Date instant;
 	
+	@ManyToOne
+	@JoinColumn(name="lost_id")
+	private Lost lost;
+	
 	@OneToOne(cascade = CascadeType.ALL,  mappedBy = "pedido")
 	private Pagamento pagamento;
 	
@@ -30,11 +33,12 @@ public class Pedido {
 	
 	public Pedido() {}
 
-	public Pedido(Integer id, Date instant,  Client client) {
+	public Pedido(Integer id, Date instant,  Client client, Lost lost) {
 		super();
 		this.id = id;
 		this.instant = instant;
 		this.client = client;
+		this.lost = lost;
 	}
 
 	public Integer getId() {
@@ -67,6 +71,18 @@ public class Pedido {
 
 	public void setClient(Client client) {
 		this.client = client;
+	}
+	
+	
+
+	
+
+	public Lost getLost() {
+		return lost;
+	}
+
+	public void setLost(Lost lost) {
+		this.lost = lost;
 	}
 
 	@Override

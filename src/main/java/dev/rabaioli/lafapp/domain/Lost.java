@@ -1,6 +1,7 @@
 package dev.rabaioli.lafapp.domain;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 
 @Entity
@@ -30,6 +32,9 @@ public class Lost implements Serializable {
 	private String local;
 	private String userApp;
 	private Date date;
+	
+	@OneToMany(mappedBy = "lost")
+	private List<Pedido> pedidos = new ArrayList<>();
 	
 	
 	@JsonIgnore
@@ -108,6 +113,15 @@ public class Lost implements Serializable {
 
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
+	}
+	
+	
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	@Override
