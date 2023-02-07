@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,6 +32,7 @@ public class Lost implements Serializable {
 	private Date date;
 	
 	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "LOST_CATEGORY",
 	joinColumns = @JoinColumn(name="lost_id"),
