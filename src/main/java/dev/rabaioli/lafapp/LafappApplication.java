@@ -1,6 +1,7 @@
 package dev.rabaioli.lafapp;
 
 import java.text.SimpleDateFormat;
+
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import dev.rabaioli.lafapp.domain.Category;
 import dev.rabaioli.lafapp.domain.Client;
 import dev.rabaioli.lafapp.domain.Lost;
-import dev.rabaioli.lafapp.domain.enums.ClientType;
+import dev.rabaioli.lafapp.domain.Pagamento;
+import dev.rabaioli.lafapp.domain.PagamentoAUTORIDADE;
+import dev.rabaioli.lafapp.domain.PagamentoCliente;
+import dev.rabaioli.lafapp.domain.Pedido;
+import dev.rabaioli.lafapp.domain.enums.EstadoPagamento;
 import dev.rabaioli.lafapp.repositories.CategoryRepository;
 import dev.rabaioli.lafapp.repositories.ClientRepository;
 import dev.rabaioli.lafapp.repositories.LostRepository;
+import dev.rabaioli.lafapp.repositories.PagamentoRepository;
+import dev.rabaioli.lafapp.repositories.PedidoRepository;
 
 @SpringBootApplication
 public class LafappApplication implements CommandLineRunner {
@@ -27,6 +34,12 @@ public class LafappApplication implements CommandLineRunner {
 	
 	@Autowired
 	private ClientRepository clientRepo;
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepo;
+	
+	@Autowired
+	private PedidoRepository pedidoRepo;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(LafappApplication.class, args);
@@ -54,13 +67,32 @@ public class LafappApplication implements CommandLineRunner {
 		cateRepo.saveAll(Arrays.asList(cat1,cat2));
 		lostRepo.saveAll(Arrays.asList(lost1,lost2));
 		
-		Client cli1 = new Client(null, "Ana Santos", "Amadora", ClientType.AUTORIDADES);
+		Client cli1 = new Client(null, "Ana Santos", "Amadora");
 		cli1.getTelefones().addAll(Arrays.asList("93455454545"));
 
-		Client cli2 = new Client(null, "Fernanda Alves", "Odivelas", ClientType.CLIENTE);
+		Client cli2 = new Client(null, "Fernanda Alves", "Odivelas");
 		cli2.getTelefones().addAll(Arrays.asList("93433232312"));
 		
 		clientRepo.saveAll(Arrays.asList(cli1,cli2));
+		
+		Pedido pede1 = new Pedido(null, sdf.parse("11/01/2023 10:32"), cli1); //Entregua PSP dia seguinte
+		Pedido pede2 = new Pedido(null, sdf.parse("11/01/2013 11:56"), cli2);
+		
+		Pagamento pagto1 = new PagamentoAUTORIDADE(null, EstadoPagamento.ENTREGUEAUTORIDADE, pede1, sdf.parse("11/01/2023 10:32"));
+		pede1.setPagamento(pagto1);
+		
+		Pagamento pagto2 = new PagamentoCliente(null, EstadoPagamento.ENTREGUECLIENTE, pede2, sdf.parse("11/01/2013 11:56"));
+		pede2.setPagamento(pagto2);
+		
+		cli1.getPedidos().addAll(Arrays.asList(pede1));
+		
+		cli2.getPedidos().addAll(Arrays.asList(pede2));
+		
+		
+		pedidoRepo.saveAll(Arrays.asList(pede1,pede2));
+		pagamentoRepo.saveAll(Arrays.asList(pagto1,pagto2));
+		
+		
 		
 		
 		

@@ -1,17 +1,20 @@
 package dev.rabaioli.lafapp.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import dev.rabaioli.lafapp.domain.enums.ClientType;
+
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Client implements Serializable {
@@ -24,16 +27,19 @@ public class Client implements Serializable {
 	private Integer id;
 	private String name;
 	private String localidade;
-	private Integer code;
+	
+	
+	@OneToMany(mappedBy = "client")
+	private List<Pedido> pedidos = new ArrayList<>();
 	
 	public Client () {}
 
-	public Client(Integer id, String name, String localidade, ClientType code) {
+	public Client(Integer id, String name, String localidade) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.localidade = localidade;
-		this.code = code.getCod();
+		
 	}
 	
 	@ElementCollection
@@ -64,14 +70,6 @@ public class Client implements Serializable {
 		this.localidade = localidade;
 	}
 
-	public ClientType getCode() {
-		return ClientType.toEnum(code);
-	}
-
-	public void setCode(ClientType code) {
-		this.code = code.getCod();
-	}
-	
 
 	public Set<String> getTelefones() {
 		return telefones;
@@ -79,6 +77,16 @@ public class Client implements Serializable {
 
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
+	}
+	
+	
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	@Override
@@ -97,6 +105,8 @@ public class Client implements Serializable {
 		Client other = (Client) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	
 	
 
 }
