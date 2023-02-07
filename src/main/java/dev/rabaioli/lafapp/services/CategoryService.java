@@ -1,5 +1,6 @@
 package dev.rabaioli.lafapp.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,10 @@ public class CategoryService {
 		   throw new DataIntegrityException("Impossible to delete. Other referenced objects ");
 		}
 		
+	}
+	
+	public List<Category> findAll(){
+		return repo.findAll();
 	}
 
 }
