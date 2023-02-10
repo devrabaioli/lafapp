@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import dev.rabaioli.lafapp.domain.Category;
+import dev.rabaioli.lafapp.dto.CategoryDTO;
 import dev.rabaioli.lafapp.repositories.CategoryRepository;
 import dev.rabaioli.lafapp.services.exceptions.DataIntegrityException;
 import dev.rabaioli.lafapp.services.exceptions.ObjectNotFoundException;
@@ -55,6 +56,10 @@ public class CategoryService {
 	
 	public List<Category> findAll(){
 		return repo.findAll();
+	}
+	
+	public Category fromDTO(CategoryDTO objDto) {
+		return new Category(objDto.getId(), objDto.getName());
 	}
 
 
