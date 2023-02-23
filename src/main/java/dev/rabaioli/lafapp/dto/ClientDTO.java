@@ -22,12 +22,16 @@ public class ClientDTO implements Serializable{
 	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String localidade;
 	
+	
+	
+	
 	public ClientDTO() {}
 	
 	public ClientDTO (Client obj) {
 		id = obj.getId();
 		name = obj.getName();
 		localidade = obj.getLocalidade();
+		
 	}
 
 	public Integer getId() {
@@ -53,7 +57,7 @@ public class ClientDTO implements Serializable{
 	public void setLocalidade(String localidade) {
 		this.localidade = localidade;
 	}
-	
-	
+
+
 
 }

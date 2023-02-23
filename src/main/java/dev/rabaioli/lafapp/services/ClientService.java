@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import dev.rabaioli.lafapp.domain.Client;
 import dev.rabaioli.lafapp.dto.ClientDTO;
+import dev.rabaioli.lafapp.dto.ClientNewDTO;
 import dev.rabaioli.lafapp.repositories.ClientRepository;
 import dev.rabaioli.lafapp.services.exceptions.DataIntegrityException;
 import dev.rabaioli.lafapp.services.exceptions.ObjectNotFoundException;
@@ -22,6 +23,11 @@ public class ClientService {
 	public Client findbyId(Integer id) {
 		Optional<Client> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Object not found, invalid id: " + id + " Class: " + Client.class.getName()));
+	}
+	
+	public Client insert(Client obj) {
+		obj.setId(null);
+		 return repo.save(obj);
 	}
 	
 	public Client update(Client obj) {
@@ -48,6 +54,17 @@ public class ClientService {
 	public Client fromDTO(ClientDTO objDto) {
 		return new Client(objDto.getId(), objDto.getName(), objDto.getLocalidade());
 	}
+	
+	public Client fromDTO(ClientNewDTO objDto) {
+		Client cli = new Client(null, objDto.getName(), objDto.getLocalidade());
+		cli.getTelefones().add(objDto.getTelefone1());
+		if(objDto.getTelefone2() != null) {
+			cli.getTelefones().add(objDto.getTelefone2());
+		}
+		return cli;
+	}
+	
+
 
 	
 
