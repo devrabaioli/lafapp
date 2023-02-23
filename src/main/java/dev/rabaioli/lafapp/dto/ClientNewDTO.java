@@ -1,13 +1,23 @@
 package dev.rabaioli.lafapp.dto;
 
 import java.io.Serializable;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 public class ClientNewDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String name;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String localidade;
+	
+	
 	private String telefone1;
     private String telefone2;
 	
@@ -29,6 +39,7 @@ public class ClientNewDTO implements Serializable {
 		this.localidade = localidade;
 	}
 
+	@NotEmpty(message="Preenchimento obrigatório")
 	public String getTelefone1() {
 		return telefone1;
 	}
