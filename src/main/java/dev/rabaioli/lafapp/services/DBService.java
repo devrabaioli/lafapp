@@ -14,12 +14,14 @@ import dev.rabaioli.lafapp.domain.Pagamento;
 import dev.rabaioli.lafapp.domain.PagamentoAUTORIDADE;
 import dev.rabaioli.lafapp.domain.PagamentoCliente;
 import dev.rabaioli.lafapp.domain.Pedido;
+import dev.rabaioli.lafapp.domain.UserAPP;
 import dev.rabaioli.lafapp.domain.enums.EstadoPagamento;
 import dev.rabaioli.lafapp.repositories.CategoryRepository;
 import dev.rabaioli.lafapp.repositories.ClientRepository;
 import dev.rabaioli.lafapp.repositories.LostRepository;
 import dev.rabaioli.lafapp.repositories.PagamentoRepository;
 import dev.rabaioli.lafapp.repositories.PedidoRepository;
+import dev.rabaioli.lafapp.repositories.UserAPPRepository;
 
 @Service
 public class DBService {
@@ -39,8 +41,17 @@ public class DBService {
 	@Autowired
 	private PedidoRepository pedidoRepo;
 	
+	@Autowired
+	private UserAPPRepository userAPPRepo;
+	
 	public void instantiateTestDatabase() throws ParseException {
 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+         UserAPP user1 = new UserAPP(null, "Helio Silva", "helio@auchan.pt");
+         UserAPP user2 = new UserAPP(null, "Joao Domingues", "joaodomingues@auchan.pt");
+         
+         userAPPRepo.saveAll(Arrays.asList(user1,user2));
+         
 		
 		Category cat1 = new Category(null, "WithValue");
 		Category cat2 = new Category(null, "OutValue");
