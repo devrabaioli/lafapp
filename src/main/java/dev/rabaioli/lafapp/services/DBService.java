@@ -77,8 +77,11 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
 		clientRepo.saveAll(Arrays.asList(cli1,cli2));
 		
-		Pedido pede1 = new Pedido(null, sdf.parse("11/01/2023 10:32"), cli1,lost1); //Entregua PSP dia seguinte
-		Pedido pede2 = new Pedido(null, sdf.parse("11/01/2013 11:56"), cli2,lost2);
+		Pedido pede1 = new Pedido(null, sdf.parse("11/01/2023 10:32"), cli1,lost1, user1); //Entregua PSP dia seguinte
+		//user1.getPedidos().addAll(Arrays.asList(pede1));
+		
+		Pedido pede2 = new Pedido(null, sdf.parse("11/01/2013 11:56"), cli2,lost2, user2);
+		//user2.getPedidos().addAll(Arrays.asList(pede2));
 		
 		Pagamento pagto1 = new PagamentoAUTORIDADE(null, EstadoPagamento.ENTREGUEAUTORIDADE, pede1, sdf.parse("11/01/2023 10:32"));
 		pede1.setPagamento(pagto1);

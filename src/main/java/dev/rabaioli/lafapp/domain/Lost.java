@@ -57,7 +57,7 @@ public class Lost implements Serializable {
 		this.description = description;
 		this.whoFind = whoFind;
 		this.local = local;
-		this.userApp = userApp;
+		this.setUserApp(userApp);
 		this.date = date;
 	}
 
@@ -94,13 +94,6 @@ public class Lost implements Serializable {
 		this.local = local;
 	}
 
-	public String getUserApp() {
-		return userApp;
-	}
-
-	public void setUserApp(String userApp) {
-		this.userApp = userApp;
-	}
 
 	public Date getDate() {
 		return date;
@@ -126,6 +119,14 @@ public class Lost implements Serializable {
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
 	}
+	
+	public String getUserApp() {
+		return userApp;
+	}
+
+	public void setUserApp(String userApp) {
+		this.userApp = userApp;
+	}
 
 	@Override
 	public int hashCode() {
@@ -143,6 +144,8 @@ public class Lost implements Serializable {
 		Lost other = (Lost) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	
 
 
 }

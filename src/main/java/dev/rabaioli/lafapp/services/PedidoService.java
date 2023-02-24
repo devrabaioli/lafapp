@@ -31,6 +31,9 @@ public class PedidoService {
 	@Autowired
 	private EmailService emailService;
 	
+	@Autowired
+	private UserAPPService userAPPService;
+	
 	
 	public Pedido findbyId(Integer id) {
 		Optional<Pedido> obj = repo.findById(id);
@@ -42,6 +45,7 @@ public class PedidoService {
 		obj.setInstant(new Date());
 		obj.setClient(clientService.findbyId(obj.getClient().getId()));
 		obj.setLost(lostService.findbyId(obj.getLost().getId()));
+		//obj.setUserapp(userAPPService.findbyId(obj.getUserapp().getId()));
 		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
 		obj.getPagamento().setPedido(obj);
 //		if (obj.getPagamento() instanceof PagamentoComBoleto) {

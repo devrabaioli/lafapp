@@ -1,5 +1,6 @@
 package dev.rabaioli.lafapp.domain;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
@@ -16,8 +17,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class Pedido {
+public class Pedido implements Serializable {
 	
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -32,6 +36,10 @@ public class Pedido {
 	@OneToOne(cascade = CascadeType.ALL,  mappedBy = "pedido")
 	private Pagamento pagamento;
 	
+	@ManyToOne
+	@JoinColumn(name = "userapp_id")
+	private UserAPP userapp;
+	
 	
 	@ManyToOne
 	@JoinColumn(name="client_id")
@@ -39,12 +47,14 @@ public class Pedido {
 	
 	public Pedido() {}
 
-	public Pedido(Integer id, Date instant,  Client client, Lost lost) {
+	public Pedido(Integer id, Date instant,  Client client, Lost lost, UserAPP userAPP) {
 		super();
 		this.id = id;
 		this.instant = instant;
 		this.client = client;
 		this.lost = lost;
+		this.userapp = userAPP;
+		
 	}
 
 	public Integer getId() {
@@ -86,6 +96,15 @@ public class Pedido {
 
 	public void setLost(Lost lost) {
 		this.lost = lost;
+	}
+	
+
+	public UserAPP getUserapp() {
+		return userapp;
+	}
+
+	public void setUserapp(UserAPP userapp) {
+		this.userapp = userapp;
 	}
 
 	@Override
