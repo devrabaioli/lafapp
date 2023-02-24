@@ -3,11 +3,13 @@ package dev.rabaioli.lafapp.domain;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import dev.rabaioli.lafapp.domain.enums.EstadoPagamento;
 import jakarta.persistence.Entity;
 
 @Entity
+@JsonTypeName("pagamentoCliente")
 public class PagamentoCliente extends Pagamento {
 	private static final long serialVersionUID = 1L;
 	

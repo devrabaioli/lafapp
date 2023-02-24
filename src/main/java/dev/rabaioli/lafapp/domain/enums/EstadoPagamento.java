@@ -5,7 +5,8 @@ public enum EstadoPagamento {
 	ENTREGUECNS(1, "Entregue CNS"),
 	ENTREGUEAUTORIDADE(2, "Entregue Autoridade"),
 	ENTREGUECLIENTE(3,"Entregue Cliente"),
-	OUTRO(4,"Outro");
+	OUTRO(4,"Outro"),
+	PENDENTE(5, "Pendente");
 	
 	private int cod;
 	private String description;
