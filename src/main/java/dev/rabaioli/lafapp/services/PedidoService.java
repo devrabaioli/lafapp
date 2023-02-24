@@ -28,6 +28,9 @@ public class PedidoService {
 	@Autowired
 	private LostService lostService;
 	
+	@Autowired
+	private EmailService emailService;
+	
 	
 	public Pedido findbyId(Integer id) {
 		Optional<Pedido> obj = repo.findById(id);
@@ -49,6 +52,7 @@ public class PedidoService {
 		pagamentoRepository.save(obj.getPagamento());
 
 		System.out.println(obj.toString());
+		emailService.sendOrderConfirmationEmail(obj);
 		return obj;
 	}
 
