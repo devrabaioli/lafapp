@@ -1,5 +1,6 @@
 package dev.rabaioli.lafapp.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -78,9 +79,6 @@ public class Pedido {
 		this.client = client;
 	}
 	
-	
-
-	
 
 	public Lost getLost() {
 		return lost;
@@ -105,6 +103,33 @@ public class Pedido {
 			return false;
 		Pedido other = (Pedido) obj;
 		return Objects.equals(id, other.id);
+	}
+	
+	@Override
+	public String toString() {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		StringBuilder builder = new StringBuilder();
+		builder.append("Pedido número: ");
+		builder.append(getId());
+		builder.append(", Instante: ");
+		builder.append(sdf.format(getInstant()));
+		builder.append(", Cliente: ");
+		builder.append(getClient().getName());
+		builder.append(" \n Perdido nº");
+		builder.append(getLost().getId());
+		builder.append(" \n Descriçao: ");
+		builder.append(getLost().getDescription());
+		builder.append(" \n Quem encontrou: ");
+		builder.append(getLost().getWhoFind());
+		builder.append(" \n Local: ");
+		builder.append(getLost().getLocal());
+		builder.append(" \n Vigilante:");
+		builder.append(getLost().getUserApp());
+		builder.append(", \n Situação do pagamento: ");
+		builder.append(getPagamento().getEstado().getDescription());
+		builder.append("\nFim:\n");
+		return builder.toString();
 	}
 	
 	
