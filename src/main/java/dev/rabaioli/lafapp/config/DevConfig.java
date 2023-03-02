@@ -17,6 +17,7 @@ import dev.rabaioli.lafapp.services.SmtpEmailService;
 @Configuration
 @Profile("dev")
 public class DevConfig {
+	
 
 	@Autowired
 	private DBService dbService;
