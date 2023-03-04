@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -19,6 +22,8 @@ public class UserAPP implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -26,16 +31,20 @@ public class UserAPP implements Serializable {
 	private String email;
 	
 	@JsonIgnore
+	private String senha;
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "userapp")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
 	public UserAPP() {}
 
-	public UserAPP(Integer id, String name, String email) {
+	public UserAPP(Integer id, String name, String email, String senha) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
+		this.senha = senha;
 	}
 
 	public Integer getId() {
@@ -61,8 +70,7 @@ public class UserAPP implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
+
 
 	public List<Pedido> getPedidos() {
 		return pedidos;
@@ -70,6 +78,16 @@ public class UserAPP implements Serializable {
 
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
+	}
+	
+	
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	@Override

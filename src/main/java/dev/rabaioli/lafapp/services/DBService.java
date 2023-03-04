@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import dev.rabaioli.lafapp.domain.Category;
@@ -27,6 +28,9 @@ import dev.rabaioli.lafapp.repositories.UserAPPRepository;
 public class DBService {
 	
 	@Autowired
+	private BCryptPasswordEncoder pe;
+	
+	@Autowired
 	private CategoryRepository cateRepo;
 	
 	@Autowired
@@ -47,8 +51,8 @@ public class DBService {
 	public void instantiateTestDatabase() throws ParseException {
 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-         UserAPP user1 = new UserAPP(null, "Helio Silva", "helio@auchan.pt");
-         UserAPP user2 = new UserAPP(null, "Joao Domingues", "joaodomingues@auchan.pt");
+         UserAPP user1 = new UserAPP(null, "Helio Silva", "helio@auchan.pt", pe.encode("batata"));
+         UserAPP user2 = new UserAPP(null, "Joao Domingues", "joaodomingues@auchan.pt", pe.encode("batata"));
          
          userAPPRepo.saveAll(Arrays.asList(user1,user2));
          
