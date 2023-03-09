@@ -2,15 +2,22 @@ package dev.rabaioli.lafapp.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import dev.rabaioli.lafapp.domain.enums.Perfil;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,11 +40,17 @@ public class UserAPP implements Serializable {
 	@JsonIgnore
 	private String senha;
 	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="PERFIS")
+	private Set<Integer> perfis = new HashSet<>();
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "userapp")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
-	public UserAPP() {}
+	public UserAPP() {
+		addPerfil(Perfil.CLIENTE);
+	}
 
 	public UserAPP(Integer id, String name, String email, String senha) {
 		super();
@@ -45,6 +58,7 @@ public class UserAPP implements Serializable {
 		this.name = name;
 		this.email = email;
 		this.senha = senha;
+		addPerfil(Perfil.CLIENTE);
 	}
 
 	public Integer getId() {
@@ -88,6 +102,14 @@ public class UserAPP implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	public Set<Perfil> getPerfis() {
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCod());
 	}
 
 	@Override

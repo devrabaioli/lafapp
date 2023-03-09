@@ -17,6 +17,7 @@ import dev.rabaioli.lafapp.domain.PagamentoCliente;
 import dev.rabaioli.lafapp.domain.Pedido;
 import dev.rabaioli.lafapp.domain.UserAPP;
 import dev.rabaioli.lafapp.domain.enums.EstadoPagamento;
+import dev.rabaioli.lafapp.domain.enums.Perfil;
 import dev.rabaioli.lafapp.repositories.CategoryRepository;
 import dev.rabaioli.lafapp.repositories.ClientRepository;
 import dev.rabaioli.lafapp.repositories.LostRepository;
@@ -53,6 +54,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
          UserAPP user1 = new UserAPP(null, "Helio Silva", "helio@auchan.pt", pe.encode("batata"));
          UserAPP user2 = new UserAPP(null, "Joao Domingues", "joaodomingues@auchan.pt", pe.encode("batata"));
+         user2.addPerfil(Perfil.ADMIN);
          
          userAPPRepo.saveAll(Arrays.asList(user1,user2));
          
